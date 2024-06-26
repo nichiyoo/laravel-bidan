@@ -1,0 +1,258 @@
+{
+    "fields": {
+        "name": {
+            "label": "Nama Lengkap",
+            "placeholder": "Masukkan Nama Lengkap"
+        },
+        "email": {
+            "label": "Alamat Email",
+            "placeholder": "Masukkan Alamat Email"
+        },
+        "password": {
+            "label": "Kata Sandi",
+            "placeholder": "Masukkan Kata Sandi"
+        },
+        "password_confirmation": {
+            "label": "Konfirmasi Kata Sandi",
+            "placeholder": "Masukkan Konfirmasi Kata Sandi"
+        },
+        "remember_me": {
+            "label": "Ingat Saya"
+        },
+        "search": {
+            "label": "Pencarian",
+            "placeholder": "Masukkan kata kunci"
+        },
+        "start": {
+            "label": "Tanggal mulai",
+            "placeholder": "Masukkan Tanggal mulai"
+        },
+        "end": {
+            "label": "Tanggal akhir",
+            "placeholder": "Masukkan Tanggal akhir"
+        },
+        "status": {
+            "label": "Status",
+            "placeholder": "Masukkan Status"
+        }
+    },
+    "articles": {
+        "title": {
+            "label": "Judul Artikel",
+            "placeholder": "Masukkan Judul Artikel"
+        },
+        "body": {
+            "label": "Isi Artikel",
+            "placeholder": "Masukkan Isi Artikel"
+        },
+        "excerpt": {
+            "label": "Isi Deskripsi",
+            "placeholder": "Masukkan Isi Deskripsi"
+        },
+        "status": {
+            "label": "Status",
+            "placeholder": "Masukkan Status"
+        },
+        "photo": {
+            "label": "Foto",
+            "placeholder": "Masukkan Foto Artikel, format JPG atau PNG, ukuran maksimal 2MB"
+        }
+    },
+    "services": {
+        "title": {
+            "label": "Judul Layanan",
+            "placeholder": "Masukkan Judul Layanan"
+        },
+        "price": {
+            "label": "Harga",
+            "placeholder": "Masukkan Harga"
+        },
+        "description": {
+            "label": "Penjelasan Layanan",
+            "placeholder": "Masukkan Penjelasan Layanan"
+        },
+        "photo": {
+            "label": "Foto Layanan",
+            "placeholder": "Masukkan Foto Layanan, format JPG atau PNG, ukuran maksimal 2MB"
+        }
+    },
+    "payments": {
+        "account": {
+            "label": "Nama Rekening",
+            "placeholder": "Masukkan Nama Rekening"
+        },
+        "number": {
+            "label": "Nomor Rekening",
+            "placeholder": "Masukkan Nomor Rekening"
+        },
+        "description": {
+            "label": "Penjelasan Metode Pembayaran",
+            "placeholder": "Masukkan Penjelasan Metode Pembayaran"
+        }
+    },
+    "patients": {
+        "user_id": {
+            "label": "Pengguna",
+            "placeholder": "Masukkan Pengguna"
+        },
+        "nik": {
+            "label": "NIK",
+            "placeholder": "Masukkan NIK"
+        },
+        "phone": {
+            "label": "Nomor Telepon",
+            "placeholder": "Masukkan Nomor Telepon"
+        },
+        "address": {
+            "label": "Alamat",
+            "placeholder": "Masukkan Alamat"
+        },
+        "birth_date": {
+            "label": "Tanggal Lahir",
+            "placeholder": "Masukkan Tanggal Lahir"
+        },
+        "birth_place": {
+            "label": "Alamat Lahir",
+            "placeholder": "Masukkan Kota Lahir"
+        },
+        "gender": {
+            "label": "Jenis Kelamin",
+            "placeholder": "Masukkan Jenis Kelamin"
+        }
+    },
+    "users": {
+        "name": {
+            "label": "Nama Lengkap",
+            "placeholder": "Masukkan Nama Lengkap"
+        },
+        "email": {
+            "label": "Alamat Email",
+            "placeholder": "Masukkan Alamat Email"
+        },
+        "role": {
+            "label": "Peran",
+            "placeholder": "Masukkan Peran"
+        },
+        "password": {
+            "label": "Kata Sandi",
+            "placeholder": "Masukkan Kata Sandi"
+        }
+    },
+    "actions": {
+        "reset": "Reset",
+        "submit": "Kirim",
+        "delete": "Hapus",
+        "edit": "Edit",
+        "create": "Buat",
+        "update": "Update"
+    },
+    "status": {
+        "pending": "Menunggu Pembayaran",
+        "confirmed": "Dikonfirmasi",
+        "cancelled": "Dibatalkan",
+        "finished": "Selesai"
+    },
+    "appointments": {
+        "deadline": {
+            "label": "Lakukan Pembayaran Sebelum",
+            "placeholder": "Masukkan Lakukan Pembayaran Sebelum"
+        },
+        "name": {
+            "label": "Nama Pasien",
+            "placeholder": "Masukkan Nama Pasien"
+        },
+        "date": {
+            "label": "Tanggal Janji",
+            "placeholder": "Masukkan Tanggal"
+        },
+        "time": {
+            "label": "Jam Janji",
+            "placeholder": "Masukkan Jam"
+        },
+        "service_id": {
+            "label": "jenis Layanan",
+            "placeholder": "Masukkan jenis Layanan"
+        },
+        "payment_id": {
+            "label": "Pembayaran",
+            "placeholder": "Masukkan Pembayaran"
+        },
+        "frequency": {
+            "label": "Frekuensi Notifikasi",
+            "placeholder": "Masukkan Frekuensi Notifikasi"
+        },
+        "receipt": {
+            "label": "Bukti Pembayaran",
+            "placeholder": "Masukkan Bukti Pembayaran, format JPG atau PNG, ukuran maksimal 2MB"
+        },
+        "total": {
+            "label": "Total pembayaran",
+            "placeholder": "Masukkan Total Pembayaran"
+        },
+        "price": {
+            "label": "Harga Layanan",
+            "placeholder": "Masukkan Harga Layanan"
+        },
+        "code": {
+            "label": "Kode Unik Pembayaran",
+            "placeholder": "Masukkan Kode Unik Pembayaran"
+        },
+        "sum": {
+            "label": "Total Pembayaran",
+            "placeholder": "Masukkan Total Pembayaran"
+        },
+        "note": {
+            "label": "Catatan",
+            "placeholder": "Masukkan Catatan"
+        }
+    },
+    "frequencies": {
+        "none": "Tidak ada",
+        "every hour": "Setiap Jam",
+        "every 6 hours": "Setiap 6 Jam",
+        "every 12 hours": "Setiap 12 Jam",
+        "every day": "Setiap Hari",
+        "every 2 days": "Setiap 2 Hari",
+        "every week": "Setiap Minggu"
+    },
+    "diagnoses": {
+        "name": {
+            "label": "Nama Pasien",
+            "placeholder": "Masukkan Nama Pasien"
+        },
+        "service": {
+            "label": "Jenis Layanan",
+            "placeholder": "Masukkan Jenis Layanan"
+        },
+        "detail": {
+            "label": "Catatan Pemeriksaan",
+            "placeholder": "Masukkan Catatan Pemeriksaan Lengkap"
+        },
+        "date": {
+            "label": "Tanggal Janji",
+            "placeholder": "Masukkan Tanggal Janji"
+        },
+        "time": {
+            "label": "Jam Janji",
+            "placeholder": "Masukkan Jam Janji"
+        }
+    },
+    "reviews": {
+        "body": {
+            "label": "Isi Kritik dan Saran",
+            "placeholder": "Masukkan Isi Kritik dan Saran"
+        },
+        "action": {
+            "label": "Tindakan",
+            "placeholder": "Masukkan Tindakan"
+        },
+        "respond": {
+            "label": "Jawaban",
+            "placeholder": "Masukkan Jawaban"
+        },
+        "status": {
+            "label": "Status",
+            "placeholder": "Masukkan Status"
+        }
+    }
+}
