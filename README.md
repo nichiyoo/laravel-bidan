@@ -1,66 +1,128 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Project Description
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Bidan management system using laravel, tailwindcss, and alpinejs with sqlite database,
+Make it easy to manage patients, appointments, and articles.
 
-## About Laravel
+## Screenshots
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+![Screenhot](public/screenshot.png)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Authentication
+- Admin and Patient Authorization
+- CRUD for Users
+- CRUD for Patients
+- CRUD for Appointments
+- CRUD for Articles
+- CRUD for Payment Methods
+- CRUD for Diagnoses
+- CRUD for Reviews
+- Appointment Notification and Scheduling
+- Payment Scheduling
 
-## Learning Laravel
+## Requirements
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHP 8.2
+- Laravel 11.0
+- Node LTS
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Installation
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. Clone the repository
 
-## Laravel Sponsors
+```bash
+git clone https://github.com/nichiyoo/laravel-bidan-app.git
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. Go to the project directory, and install the dependencies
 
-### Premium Partners
+```bash
+cd athelete-app
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+composer install
+npm install
+```
 
-## Contributing
+3. Copy the .env.example file to .env and fill in the required details (app name, database, locale, and appointment related settings), example:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+APP_NAME="Bidan Ernawati"
 
-## Code of Conduct
+APP_LOCALE=id
+APP_FALLBACK_LOCALE=id
+APP_FAKER_LOCALE=id_ID
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+DB_CONNECTION=sqlite
 
-## Security Vulnerabilities
+APPOINTMENT_TIMEOUT=30
+APPOINTMENT_OPEN=6
+APPOINTMENT_CLOSE=22
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4. Create a storage folder `./storage/app/media`, then link it to the public folder.
 
-## License
+First make sure you have the `storage/app/media` folder created, like so: 
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+root/
+    app/
+    bootstrap/
+    ...
+    storage/
+        app/
+            media/
+            public/
+    .env
+    ...
+```
+
+Then run the following command:
+
+```bash
+php artisan storage:link
+```
+
+5. Generate the key and store it in the .env file
+
+```bash
+php artisan key:generate
+```
+
+6. Run the migration
+
+```bash
+php artisan migrate
+```
+
+The first migration with sqlite will prompt you to create a database file, you can choose the name and location of the database, or just press enter to use the default location.
+
+7. Run the seeder
+
+```bash
+php artisan db:seed
+```
+
+8. Compile the assets
+
+```bash
+npm run build
+```
+
+9. Run the application
+
+```bash
+php artisan serve
+```
+
+10. Open your browser and navigate to http://localhost:8000, the default user for admin and patient is
+
+```
+# admin
+email: admin@example.com
+password: password
+
+# patient
+email: patient@example.com
+password: password
+``
