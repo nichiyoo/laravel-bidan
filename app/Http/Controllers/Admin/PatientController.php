@@ -103,8 +103,6 @@ class PatientController extends Controller
     public function store(StorePatientRequest $request)
     {
         $validated = $request->validated();
-        $validated['completed'] = true;
-
         $patient = Patient::create($validated);
 
         return redirect()
@@ -142,8 +140,6 @@ class PatientController extends Controller
     public function update(UpdatePatientRequest $request, Patient $patient)
     {
         $validated = $request->validated();
-        $validated['completed'] = true;
-
         $patient->update($validated);
 
         return redirect()

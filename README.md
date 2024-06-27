@@ -38,7 +38,7 @@ git clone https://github.com/nichiyoo/laravel-bidan-app.git
 2. Go to the project directory, and install the dependencies
 
 ```bash
-cd athelete-app
+cd laravel-bidan-app
 
 composer install
 npm install

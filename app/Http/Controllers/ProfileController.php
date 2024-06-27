@@ -30,8 +30,6 @@ class ProfileController extends Controller
     public function update(UpdateProfileRequests $request)
     {
         $validated = $request->validated();
-        $validated['completed'] = true;
-
         $patient = request()->user()->patient;
 
         if ($patient) {
