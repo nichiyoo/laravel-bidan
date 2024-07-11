@@ -23,11 +23,22 @@ class PatientController extends Controller
         $type = request('format');
         $filename = 'patient-' . now()->format('Y-m-d');
 
+        $start = request('start');
+        $end = request('end');
+        $patients = Patient::with('user')
+            ->when($start, function ($query) use ($start) {
+                return $query->where('created_at', '>=', $start);
+            })
+            ->when($end, function ($query) use ($end) {
+                return $query->where('created_at', '<=', $end);
+            })
+            ->orderBy('created_at', 'asc')
+            ->get();
+
         if ($type == 'csv') {
-            return Excel::download(new PatientExport, $filename . '.csv', ExcelType::CSV);
+            return Excel::download(new PatientExport($patients), $filename . '.csv', ExcelType::CSV);
         } else {
-            $data = Patient::all();
-            $pdf = Pdf::loadView('reports.patient', ['patients' => $data]);
+            $pdf = Pdf::loadView('reports.patient', ['patients' => $patients]);
             return $pdf->setPaper('auto', 'landscape')->stream($filename . '.pdf');
         }
     }
@@ -37,13 +48,24 @@ class PatientController extends Controller
      */
     public function report()
     {
+        $start = request('start');
+        $end = request('end');
+
         $patients = Patient::with('user')
-            ->orderBy('id')
+            ->when($start, function ($query) use ($start) {
+                return $query->where('created_at', '>=', $start);
+            })
+            ->when($end, function ($query) use ($end) {
+                return $query->where('created_at', '<=', $end);
+            })
+            ->orderBy('created_at', 'asc')
             ->paginate(50)
             ->withQueryString();
 
         return view('admins.reports.patient', [
             'patients' => $patients,
+            'start' => $start,
+            'end' => $end,
         ]);
     }
 

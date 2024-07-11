@@ -13,9 +13,9 @@
         <thead>
             <tr>
                 <th>{{ __('No') }}</th>
+                <th>{{ __('Tanggal Dibuat') }}</th>
                 <th>{{ __('Nama Layanan') }}</th>
                 <th>{{ __('Harga') }}</th>
-                <th>{{ __('Tanggal Dibuat') }}</th>
                 <th>{{ __('Deskripsi') }}</th>
             </tr>
         </thead>
@@ -23,9 +23,9 @@
             @foreach ($services as $service)
                 <tr>
                     <td>{{ $service->id }}</td>
+                    <td>{{ $service->created_at->format('d F Y') }}</td>
                     <td>{{ $service->title }}</td>
                     <td>{{ $service->price }}</td>
-                    <td>{{ $service->created_at->format('d F Y') }}</td>
                     <td>{{ $service->description }}</td>
                 </tr>
             @endforeach

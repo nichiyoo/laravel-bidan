@@ -13,6 +13,7 @@
         <thead>
             <tr>
                 <th>{{ __('No') }}</th>
+                <th>{{ __('Tanggal Dibuat') }}</th>
                 <th>{{ __('Nama') }}</th>
                 <th>{{ __('Isi') }}</th>
                 <th>{{ __('Status') }}</th>
@@ -24,6 +25,7 @@
             @foreach ($reviews as $review)
                 <tr>
                     <td>{{ $review->id }}</td>
+                    <td>{{ $review->created_at->format('d F Y') }}</td>
                     <td>{{ $review->user->name }}</td>
                     <td>{{ $review->body }}</td>
                     <td>{{ $review->status }}</td>

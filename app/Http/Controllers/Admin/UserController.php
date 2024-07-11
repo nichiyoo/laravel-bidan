@@ -23,10 +23,20 @@ class UserController extends Controller
         $type = request('format');
         $filename = 'user-' . now()->format('Y-m-d');
 
+        $start = request('start');
+        $end = request('end');
+        $users = User::when($start, function ($query) use ($start) {
+            return $query->where('created_at', '>=', $start);
+        })
+            ->when($end, function ($query) use ($end) {
+                return $query->where('created_at', '<=', $end);
+            })
+            ->orderBy('created_at', 'asc')
+            ->get();
+
         if ($type == 'csv') {
-            return Excel::download(new UserExport, $filename . '.csv', ExcelType::CSV);
+            return Excel::download(new UserExport($users), $filename . '.csv', ExcelType::CSV);
         } else {
-            $users = User::all();
             $pdf = Pdf::loadView('reports.user', [
                 'users' => $users
             ]);
@@ -39,12 +49,22 @@ class UserController extends Controller
      */
     public function report()
     {
-        $users = User::orderBy('id')
+        $start = request('start');
+        $end = request('end');
+        $users = User::when($start, function ($query) use ($start) {
+            return $query->where('created_at', '>=', $start);
+        })
+            ->when($end, function ($query) use ($end) {
+                return $query->where('created_at', '<=', $end);
+            })
+            ->orderBy('created_at', 'asc')
             ->paginate(50)
             ->withQueryString();
 
         return view('admins.reports.user', [
             'users' => $users,
+            'start' => $start,
+            'end' => $end,
         ]);
     }
 

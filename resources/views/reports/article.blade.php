@@ -13,9 +13,9 @@
         <thead>
             <tr>
                 <th>{{ __('No') }}</th>
+                <th>{{ __('Tanggal Dibuat') }}</th>
                 <th>{{ __('Judul') }}</th>
                 <th>{{ __('Status') }}</th>
-                <th>{{ __('Tanggal Dibuat') }}</th>
                 <th>{{ __('Dilihat') }}</th>
                 <th>{{ __('Deskripsi') }}</th>
             </tr>
@@ -24,9 +24,9 @@
             @foreach ($articles as $article)
                 <tr>
                     <td>{{ $article->id }}</td>
+                    <td>{{ $article->created_at->format('d F Y') }}</td>
                     <td>{{ $article->title }}</td>
                     <td>{{ $article->status }}</td>
-                    <td>{{ $article->created_at->format('d F Y') }}</td>
                     <td>{{ $article->views }}</td>
                     <td>{{ $article->excerpt }}</td>
                 </tr>

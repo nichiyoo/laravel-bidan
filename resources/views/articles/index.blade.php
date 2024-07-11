@@ -45,4 +45,6 @@
         </div>
     </section>
 
+    {{ $articles->links() }}
+
 </x-landing-layout>

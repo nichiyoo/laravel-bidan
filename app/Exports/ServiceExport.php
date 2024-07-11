@@ -3,18 +3,36 @@
 namespace App\Exports;
 
 use App\Models\Service;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class ServiceExport implements FromCollection, WithHeadings
+class ServiceExport implements FromArray, WithHeadings
 {
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function collection()
+    protected Collection $services;
+
+    public function __construct(Collection $services)
     {
-        return Service::all();
+        $this->services = $services;
+    }
+
+    /**
+     * array of data to export
+     *
+     * @return array
+     */
+    public function array(): array
+    {
+        return $this->services->map(function (Service $service) {
+            return [
+                $service->id,
+                $service->created_at,
+                $service->title,
+                $service->price,
+                $service->description,
+            ];
+        })->toArray();
     }
 
     /**
@@ -22,6 +40,12 @@ class ServiceExport implements FromCollection, WithHeadings
      */
     public function headings(): array
     {
-        return Schema::getColumnListing('services');
+        return [
+            'no',
+            'created_at',
+            'title',
+            'price',
+            'description',
+        ];
     }
 }

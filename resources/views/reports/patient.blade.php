@@ -13,6 +13,7 @@
         <thead>
             <tr>
                 <th>{{ __('No') }}</th>
+                <th>{{ __('Tanggal Dibuat') }}</th>
                 <th>{{ __('Nik') }}</th>
                 <th>{{ __('Nama') }}</th>
                 <th>{{ __('Jenis Kelamin') }}</th>
@@ -26,6 +27,7 @@
             @foreach ($patients as $patient)
                 <tr>
                     <td>{{ $patient->id }}</td>
+                    <td>{{ $patient->created_at->format('d F Y') }}</td>
                     <td>{{ $patient->user->name }}</td>
                     <td>{{ $patient->nik }}</td>
                     <td>{{ $patient->gender }}</td>

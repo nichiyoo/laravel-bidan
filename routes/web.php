@@ -22,12 +22,10 @@ use App\Models\Service;
 Route::get('/', function () {
     $articles = Article::where('status', '=', 'published')->take(3)->get();
     $services = Service::take(3)->get();
-    $icons = ['heart-pulse', 'wallet-cards', 'bell-ring'];
 
     return view('welcome', [
         'articles' => $articles,
         'services' => $services,
-        'icons' => $icons,
     ]);
 })->name('welcome');
 
@@ -46,6 +44,18 @@ Route::get('/articles/{article}', function (Article $article) {
         'article' => $article
     ]);
 })->name('articles.show');
+
+Route::get('/services', function () {
+    $services = Service::paginate(6)->withQueryString();
+
+    return view('services.index', [
+        'services' => $services,
+    ]);
+})->name('services.index');
+
+Route::get('/testimonials', function () {
+    return view('testimonials.index');
+})->name('testimonials.index');
 
 /**
  * Helper to redirect to dashboard

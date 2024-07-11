@@ -3,23 +3,17 @@
 namespace App\Exports;
 
 use App\Models\Patient;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class PatientExport implements FromArray, WithHeadings
 {
-    protected $patients;
+    protected Collection $patients;
 
-    public function __construct()
+    public function __construct(Collection $patients)
     {
-        $this->patients = Patient::with('user', 'appointments')
-            ->withCount([
-                'appointments as total',
-                'appointments as cancelled' => function ($query) {
-                    return $query->where('status', 'cancelled');
-                },
-            ])
-            ->get();
+        $this->patients = $patients;
     }
 
     /**
@@ -66,7 +60,7 @@ class PatientExport implements FromArray, WithHeadings
             'gender',
             'total_appointments',
             'cancelled_appointments',
-            'obediance_percentage',
+            'obedience_percentage',
             'created_at',
             'updated_at',
         ];

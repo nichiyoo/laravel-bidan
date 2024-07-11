@@ -3,18 +3,38 @@
 namespace App\Exports;
 
 use App\Models\Review;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class ReviewExport implements FromCollection, WithHeadings
+class ReviewExport implements FromArray, WithHeadings
 {
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function collection()
+    protected Collection $reviews;
+
+    public function __construct(Collection $reviews)
     {
-        return Review::all();
+        $this->reviews = $reviews;
+    }
+
+    /**
+     * array of data to export
+     *
+     * @return array
+     */
+    public function array(): array
+    {
+        return $this->reviews->map(function (Review $review) {
+            return [
+                $review->id,
+                $review->created_at,
+                $review->user->name,
+                $review->body,
+                $review->status,
+                $review->action,
+                $review->respond,
+            ];
+        })->toArray();
     }
 
     /**
@@ -22,6 +42,14 @@ class ReviewExport implements FromCollection, WithHeadings
      */
     public function headings(): array
     {
-        return Schema::getColumnListing('reviews');
+        return [
+            'no',
+            'created_at',
+            'user',
+            'body',
+            'status',
+            'action',
+            'respond',
+        ];
     }
 }

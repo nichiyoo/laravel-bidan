@@ -13,20 +13,20 @@
         <thead>
             <tr>
                 <th>{{ __('No') }}</th>
+                <th>{{ __('Tanggal Dibuat') }}</th>
                 <th>{{ __('Nama Rekening') }}</th>
                 <th>{{ __('Nomor Rekening') }}</th>
                 <th>{{ __('Keterangan') }}</th>
-                <th>{{ __('Tanggal Dibuat') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($payments as $payment)
                 <tr>
                     <td>{{ $payment->id }}</td>
+                    <td>{{ $payment->created_at->format('d F Y') }}</td>
                     <td>{{ $payment->account }}</td>
                     <td>{{ $payment->number }}</td>
                     <td>{{ $payment->description }}</td>
-                    <td>{{ $payment->created_at }}</td>
                 </tr>
             @endforeach
         </tbody>

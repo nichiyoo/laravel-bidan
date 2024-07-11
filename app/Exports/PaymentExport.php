@@ -3,18 +3,35 @@
 namespace App\Exports;
 
 use App\Models\Payment;
-use Illuminate\Support\Facades\Schema;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class PaymentExport implements FromCollection, WithHeadings
+class PaymentExport implements FromArray, WithHeadings
 {
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function collection()
+    protected Collection $payments;
+
+    public function __construct(Collection $payments)
     {
-        return Payment::all();
+        $this->payments = $payments;
+    }
+
+    /**
+     * array of data to export
+     *
+     * @return array
+     */
+    public function array(): array
+    {
+        return $this->payments->map(function (Payment $payment) {
+            return [
+                $payment->id,
+                $payment->created_at,
+                $payment->account,
+                $payment->number,
+                $payment->description,
+            ];
+        })->toArray();
     }
 
     /**
@@ -22,6 +39,12 @@ class PaymentExport implements FromCollection, WithHeadings
      */
     public function headings(): array
     {
-        return Schema::getColumnListing('payments');
+        return [
+            'no',
+            'created_at',
+            'account',
+            'number',
+            'description',
+        ];
     }
 }

@@ -23,10 +23,20 @@ class ServiceController extends Controller
         $type = request('format');
         $filename = 'service-' . now()->format('Y-m-d');
 
+        $start = request('start');
+        $end = request('end');
+        $services = Service::when($start, function ($query) use ($start) {
+            return $query->where('created_at', '>=', $start);
+        })
+            ->when($end, function ($query) use ($end) {
+                return $query->where('created_at', '<=', $end);
+            })
+            ->orderBy('created_at', 'asc')
+            ->get();
+
         if ($type == 'csv') {
-            return Excel::download(new ServiceExport, $filename . '.csv', ExcelType::CSV);
+            return Excel::download(new ServiceExport($services), $filename . '.csv', ExcelType::CSV);
         } else {
-            $services = Service::all();
             $pdf = Pdf::loadView('reports.service', [
                 'services' => $services
             ]);
@@ -39,12 +49,23 @@ class ServiceController extends Controller
      */
     public function report()
     {
-        $services = Service::orderBy('id')
+        $start = request('start');
+        $end = request('end');
+
+        $services = Service::when($start, function ($query) use ($start) {
+            return $query->where('created_at', '>=', $start);
+        })
+            ->when($end, function ($query) use ($end) {
+                return $query->where('created_at', '<=', $end);
+            })
+            ->orderBy('created_at', 'asc')
             ->paginate(50)
             ->withQueryString();
 
         return view('admins.reports.service', [
             'services' => $services,
+            'start' => $start,
+            'end' => $end,
         ]);
     }
 

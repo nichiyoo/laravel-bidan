@@ -25,10 +25,20 @@ class ArticleController extends Controller
         $type = request('format');
         $filename = 'article-' . now()->format('Y-m-d');
 
+        $start = request('start');
+        $end = request('end');
+        $articles = Article::when($start, function ($query) use ($start) {
+            return $query->where('created_at', '>=', $start);
+        })
+            ->when($end, function ($query) use ($end) {
+                return $query->where('created_at', '<=', $end);
+            })
+            ->orderBy('created_at', 'asc')
+            ->get();
+
         if ($type == 'csv') {
-            return Excel::download(new ArticleExport, $filename . '.csv', ExcelType::CSV);
+            return Excel::download(new ArticleExport($articles), $filename . '.csv', ExcelType::CSV);
         } else {
-            $articles = Article::all();
             $pdf = Pdf::loadView('reports.article', [
                 'articles' => $articles
             ]);
@@ -41,12 +51,23 @@ class ArticleController extends Controller
      */
     public function report()
     {
-        $articles = Article::orderBy('id')
+        $start = request('start');
+        $end = request('end');
+
+        $articles = Article::when($start, function ($query) use ($start) {
+            return $query->where('created_at', '>=', $start);
+        })
+            ->when($end, function ($query) use ($end) {
+                return $query->where('created_at', '<=', $end);
+            })
+            ->orderBy('created_at', 'asc')
             ->paginate(50)
             ->withQueryString();
 
         return view('admins.reports.article', [
             'articles' => $articles,
+            'start' => $start,
+            'end' => $end,
         ]);
     }
 

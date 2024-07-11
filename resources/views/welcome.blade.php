@@ -43,14 +43,26 @@
 
         <div class="grid gap-8 lg:grid-cols-3">
             @foreach ($services as $service)
-                <div class="p-8 space-y-2 bg-white frame rounded-xl">
-                    <i data-lucide="{{ $icons[$loop->index] }}" class="size-8 text-accent"></i>
-                    <h3 class="text-lg font-bold text-primary">
-                        {{ $service->title }}
-                    </h3>
-                    <p class="text-zinc-600 line-clamp-2">
-                        {{ $service->description }}
-                    </p>
+                <div for="{{ $service->id }}" class="relative overflow-hidden bg-white frame rounded-xl group">
+
+                    <figure class="w-full overflow-hidden aspect-thumbnail">
+                        <img src="{{ asset($service->photo) }}" alt="{{ $service->title }}"
+                            class="object-cover w-full h-full transition-all duration-300 hover:scale-110">
+                    </figure>
+
+                    <div class="p-6 space-y-4">
+                        <h3 class="text-lg font-bold text-primary">
+                            {{ $service->title }}
+                        </h3>
+
+                        <p class="text-zinc-600 line-clamp-3">
+                            {{ $service->description }}
+                        </p>
+
+                        <span class="block font-semibold text-accent">
+                            Rp{{ $service->price }}
+                        </span>
+                    </div>
                 </div>
             @endforeach
         </div>

@@ -22,10 +22,20 @@ class PaymentController extends Controller
         $type = request('format');
         $filename = 'payment-' . now()->format('Y-m-d');
 
+        $start = request('start');
+        $end = request('end');
+        $payments = Payment::when($start, function ($query) use ($start) {
+            return $query->where('created_at', '>=', $start);
+        })
+            ->when($end, function ($query) use ($end) {
+                return $query->where('created_at', '<=', $end);
+            })
+            ->orderBy('created_at', 'asc')
+            ->get();
+
         if ($type == 'csv') {
-            return Excel::download(new PaymentExport, $filename . '.csv', ExcelType::CSV);
+            return Excel::download(new PaymentExport($payments), $filename . '.csv', ExcelType::CSV);
         } else {
-            $payments = Payment::all();
             $pdf = Pdf::loadView('reports.payment', [
                 'payments' => $payments
             ]);
@@ -38,12 +48,23 @@ class PaymentController extends Controller
      */
     public function report()
     {
-        $payments = Payment::orderBy('id')
+        $start = request('start');
+        $end = request('end');
+
+        $payments = Payment::when($start, function ($query) use ($start) {
+            return $query->where('created_at', '>=', $start);
+        })
+            ->when($end, function ($query) use ($end) {
+                return $query->where('created_at', '<=', $end);
+            })
+            ->orderBy('created_at', 'asc')
             ->paginate(50)
             ->withQueryString();
 
         return view('admins.reports.payment', [
             'payments' => $payments,
+            'start' => $start,
+            'end' => $end,
         ]);
     }
 

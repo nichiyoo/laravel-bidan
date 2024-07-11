@@ -21,10 +21,21 @@ class ReviewController extends Controller
         $type = request('format');
         $filename = 'review-' . now()->format('Y-m-d');
 
+        $start = request('start');
+        $end = request('end');
+        $reviews = Review::with('user')
+            ->when($start, function ($query) use ($start) {
+                return $query->where('created_at', '>=', $start);
+            })
+            ->when($end, function ($query) use ($end) {
+                return $query->where('created_at', '<=', $end);
+            })
+            ->orderBy('created_at', 'asc')
+            ->get();
+
         if ($type == 'csv') {
-            return Excel::download(new ReviewExport, $filename . '.csv', ExcelType::CSV);
+            return Excel::download(new ReviewExport($reviews), $filename . '.csv', ExcelType::CSV);
         } else {
-            $reviews = Review::all();
             $pdf = Pdf::loadView('reports.review', [
                 'reviews' => $reviews
             ]);
@@ -37,12 +48,24 @@ class ReviewController extends Controller
      */
     public function report()
     {
-        $reviews = Review::orderBy('id')
+        $start = request('start');
+        $end = request('end');
+
+        $reviews = Review::with('user')
+            ->when($start, function ($query) use ($start) {
+                return $query->where('created_at', '>=', $start);
+            })
+            ->when($end, function ($query) use ($end) {
+                return $query->where('created_at', '<=', $end);
+            })
+            ->orderBy('created_at', 'asc')
             ->paginate(50)
             ->withQueryString();
 
         return view('admins.reports.review', [
             'reviews' => $reviews,
+            'start' => $start,
+            'end' => $end,
         ]);
     }
 
